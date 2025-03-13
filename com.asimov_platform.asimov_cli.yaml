@@ -14,16 +14,20 @@ modules:
     sources:
       # Linux x86_64
       - type: file
-        url: "https://github.com/asimov-platform/asimov-cli/releases/download/25.0.0-dev.2/asimov-linux-x86.gz"
-        sha256: "a64251f846d0cc0280a7f83f25f0db0c4f15ef4caf349ccd45dad22250866060"
+        url: "https://github.com/imunproductive/asimov-cli/releases/download/25.0.0-dev.13/asimov-linux-x86.gz"
+        sha256: "6779b708529ea1713155fe3088cdf7cba99b8f1fd5e80a8a2e0c030fbadcad71"
+#        url: "https://github.com/asimov-platform/asimov-cli/releases/download/25.0.0-dev.2/asimov-linux-x86.gz"
+#        sha256: "a64251f846d0cc0280a7f83f25f0db0c4f15ef4caf349ccd45dad22250866060"
         only-arches:
           - x86_64
         dest-filename: "asimov.gz"
 
       # Linux ARM (aarch64)
       - type: file
-        url: "https://github.com/asimov-platform/asimov-cli/releases/download/25.0.0-dev.2/asimov-linux-arm.gz"
-        sha256: "e9ca2393fe6147a01f10a36bd162b8f014fcfc1e964bb65a33e6d0920b34960d"
+        url: "https://github.com/imunproductive/asimov-cli/releases/download/25.0.0-dev.13/asimov-linux-arm.gz"
+        sha256: "57edcefa89029a6ab5ce1118a60f24f58afa5476d60890f95c5c27d147c58162"
+#        url: "https://github.com/asimov-platform/asimov-cli/releases/download/25.0.0-dev.2/asimov-linux-arm.gz"
+#        sha256: "e9ca2393fe6147a01f10a36bd162b8f014fcfc1e964bb65a33e6d0920b34960d"
         only-arches:
           - aarch64
         dest-filename: "asimov.gz"
