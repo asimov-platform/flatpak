@@ -1,35 +1,40 @@
-name: Test Flatpak
+name: Build & Publish Flatpak to GitHub Pages
 
-on: [push]
+on:
+  push:
+#    branches:
+#      - main
+#  pull_request:
 
 jobs:
-  build-and-test-flatpak:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the code
+      - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Install Flatpak and Flatpak Builder
+      - name: Install Flatpak tools
         run: |
           sudo apt-get update
           sudo apt-get install -y flatpak flatpak-builder
 
-      - name: Setup Flatpak environment
+      - name: Setup Freedesktop (if needed)
         run: |
-          # Add the Flathub remote so we can pull down the Freedesktop Platform & SDK
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-          # Update to fetch remote info
           sudo flatpak update -y
+          sudo flatpak install -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
 
-          # Install the 23.08 runtime and SDK needed by your manifest
-          sudo flatpak install -y flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
-
-      - name: Build the Flatpak
+      - name: Build Flatpak OSTree Repo
         run: |
-          flatpak-builder --force-clean build-dir com.asimov_platform.asimov_cli.yaml
+          # Build your Flatpak into a local repo/ folder
+          flatpak-builder --force-clean --repo=repo build-dir com.asimov_platform.asimov_cli.yaml
+          # Update the summary so Flatpak can read it
+          ostree --repo=repo summary -u
 
-      - name: Install and Test the CLI
-        run: |
-          flatpak-builder --user --install --force-clean build-dir com.asimov_platform.asimov_cli.yaml
-          flatpak run com.asimov_platform.asimov_cli sh -c 'asimov --version'
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Deploy the 'repo' folder to gh-pages branch
+          publish_dir: repo
+          publish_branch: gh-pages
