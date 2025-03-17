@@ -2,7 +2,7 @@ name: Test Deployed Flatpak
 
 on:
   workflow_run:
-    workflows: ["Build & Publish Flatpak to GitHub Pages"]
+    workflows: ["pages-build-deployment"]
     types: ["completed"]
 
 jobs:
