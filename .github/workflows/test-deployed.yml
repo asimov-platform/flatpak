@@ -22,7 +22,7 @@ jobs:
       - name: Add remote from GH Pages
         run: |
           flatpak remote-add --if-not-exists --user asimov-cli \
-            https://<USERNAME>.github.io/<REPO_NAME>/repo
+            https://asimov-platform.github.io/flatpak/repo
           flatpak remotes
 
       - name: Install and run CLI
