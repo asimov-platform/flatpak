@@ -1,0 +1,31 @@
+name: Test Deployed Flatpak
+
+on:
+  workflow_run:
+    workflows: ["Build & Publish Flatpak to GitHub Pages"]
+    types: ["completed"]
+
+jobs:
+  test-deployed:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for GitHub Pages update
+        run: sleep 20
+
+      - name: Install flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak
+
+      - name: Add remote from GH Pages
+        run: |
+          flatpak remote-add --if-not-exists --user asimov-cli \
+            https://<USERNAME>.github.io/<REPO_NAME>/repo
+          flatpak remotes
+
+      - name: Install and run CLI
+        run: |
+          flatpak install -y --user asimov-cli com.asimov_platform.asimov_cli
+          flatpak run com.asimov_platform.asimov_cli --version
