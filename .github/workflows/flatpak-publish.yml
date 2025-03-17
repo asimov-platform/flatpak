@@ -26,15 +26,12 @@ jobs:
 
       - name: Build Flatpak OSTree Repo
         run: |
-          # Build your Flatpak into a local repo/ folder
           flatpak-builder --force-clean --repo=repo build-dir com.asimov_platform.asimov_cli.yaml
-          # Update the summary so Flatpak can read it
           ostree --repo=repo summary -u
 
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Deploy the 'repo' folder to gh-pages branch
           publish_dir: repo
           publish_branch: gh-pages
