@@ -1,5 +1,6 @@
 # Flatpak Package for ASIMOV Platform
 This repository provides a Flatpak package for the [ASIMOV Platform]
+
 ## **Prerequisites**
 
 - A Linux distribution with [Flatpak](https://flatpak.org/setup/) installed.
