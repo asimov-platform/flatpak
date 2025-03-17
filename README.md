@@ -1,5 +1,5 @@
 # Flatpak Package for ASIMOV Platform
-This repository provides a Flatpak package for the [ASIMOV Platform], allowing users to easily install and run the Asimov CLI on Linux distributions that support Flatpak.
+This repository provides a Flatpak package for the [ASIMOV Platform]
 
 ## **Prerequisites**
 
