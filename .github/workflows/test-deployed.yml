@@ -14,10 +14,16 @@ jobs:
       - name: Wait for GitHub Pages update
         run: sleep 20
 
-      - name: Install flatpak
+      - name: Install Flatpak
         run: |
           sudo apt-get update
           sudo apt-get install -y flatpak
+
+      - name: Install Freedesktop runtime
+        run: |
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak update -y
+          sudo flatpak install -y flathub org.freedesktop.Platform//24.08
 
       - name: Add remote from GH Pages
         run: |
@@ -25,7 +31,7 @@ jobs:
             --no-gpg-verify https://asimov-platform.github.io/flatpak
           flatpak remotes
 
-      - name: Install and run CLI
+      - name: Install and Run CLI
         run: |
           flatpak install -y --user asimov-cli com.asimov_platform.asimov_cli
           flatpak run com.asimov_platform.asimov_cli --version
